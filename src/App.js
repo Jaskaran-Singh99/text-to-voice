@@ -1,25 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
-
+import { useState } from "react";
+import { useAsyncError } from "react-router-dom";
 function App() {
+  const [listen, setListen] = useState('')
+  const [textarea, setTextarea] = useState('')
+  const textToSpeech = ()=>{
+    let speech = new SpeechSynthesisUtterance()
+    speech.text = textarea
+    window.speechSynthesis.speak(speech)
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="hero">
+      <h1>Text to speech <span className="span">converter</span></h1>
+      <textarea placeholder="Enter the text" onChange={(e)=>setTextarea(e.target.value)} ></textarea>
+      <div className="row">
+        <select></select>
+        <button onClick={()=>textToSpeech()}>Listen</button>
+      </div>
+      {console.log(listen)}
     </div>
-  );
+  )
 }
 
 export default App;
